@@ -5,7 +5,7 @@
 #                                                           |         by Voxa. 2024         |
 #                                                           |                               |
 #                                                           +-------------------------------+
-# TODO: Setup clone from github 
+#
 # --- VARIABLES ---
 
 DEVICE=""

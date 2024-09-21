@@ -51,7 +51,7 @@ SET_LOCALES(){
   echo "en_US.UTF-8 UTF-8" > /etc/locale.gen                #Set Locales.gen to English
   locale-gen                                                #Local Generation
   echo "LANG=en_US.UTF-8"  > /etc/locales.conf              #Set Locales to English
-  echo "KEYMAP=$KEYMAP"    > /etc/vconsole.conf           #Set Keymap
+  echo "KEYMAP=$KEYMAP"    > /etc/vconsole.conf             #Set Keymap
 }
 
 # --- NETWORK ---
@@ -94,7 +94,6 @@ SET_ROOT_PASSWORD(){                                        #Set Root password
 CREATE_USER(){                                              #Create new user
   useradd -m -G "wheel" $USERNAME
   passwd $USERNAME
-  # TODO: SETUP WHEEL in /etc/sudoers 
 }
 
 # --- ADDITIONAL PACKAGES ---
@@ -127,6 +126,3 @@ SET_ROOT_PASSWORD
 CREATE_USER
 INSTALL_PACKAGES
 CLEAN
-  
-# TODO: service to enable
-# GDM

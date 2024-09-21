@@ -20,14 +20,14 @@ XORG=("xorg-server" "xorg-apps")
 # --- MODULES TO INSTALL ---
 
 PACKAGES=(
-  #${APPS[*]}
-  #${AUDIO[*]}
-  #${DESKTOP[*]}
-  #${DEV[*]}
-  #${NVIDIA[*]}
-  #${TOOLS[*]}
-  #${WEB[*]}
-  #${XORG[*]}
+  ${APPS[*]}
+  ${AUDIO[*]}
+  ${DESKTOP[*]}
+  ${DEV[*]}
+  ${NVIDIA[*]}
+  ${TOOLS[*]}
+  ${WEB[*]}
+  ${XORG[*]}
 )
 
 pacman -Syu ${PACKAGES[*]}
