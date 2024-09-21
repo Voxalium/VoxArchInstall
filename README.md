@@ -5,7 +5,7 @@
 These scripts are specifically design for me.
 
 By default :
-- It will makes two partitions, no swap partition.
+- It will make two partitions, no swap partition.
 
 | Partition | File System | Size       |
 | --------- | ----------  | -----------|
