@@ -13,6 +13,7 @@ HOSTNAME=""
 KEYMAP=""
 TIMEZONE=""
 USERNAME=""
+WHEEL='/^# %wheel ALL=(ALL:ALL) ALL/s/^# //'                #Remove '#'
 
 # --- TOOLS ---
 
@@ -93,6 +94,7 @@ SET_ROOT_PASSWORD(){                                        #Set Root password
 
 CREATE_USER(){                                              #Create new user
   useradd -m -G "wheel" $USERNAME
+  sed -i "$WHEEL" /etc/sudoers                              #Add wheel for sudo
   passwd $USERNAME
 }
 

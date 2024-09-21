@@ -96,6 +96,5 @@ cd VoxArchInstall
 
 ### TODO
 - Finish documentation
-- Setup WHEEL in /etc/sudoers 
 - Add .dotfiles with symlinks
 - Systemd services 
