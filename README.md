@@ -1,6 +1,6 @@
 # VoxArchInstall
 
-## <span style="color:red">WARNING WORK IN PROGRESS!</span>
+## $${\color{red}WARNING \space WORK \space IN \space PROGRESS!}$$
 
 These scripts are specifically design for me.
 
