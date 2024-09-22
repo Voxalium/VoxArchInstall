@@ -1,6 +1,6 @@
 # VoxArchInstall
 
-## WARNING WORK IN PROGRESS!
+## <span style="color:red">WARNING WORK IN PROGRESS!</span>
 
 These scripts are specifically design for me.
 
@@ -17,17 +17,18 @@ By default :
 - It will install **xorg** and **pipewire**
 - It will install **awesome** window manager
 
-You can modify **archInstall.sh**, **chroot.sh** and **packages.sh** to your convenience.
+You can modify **archInstall.sh**, **chroot.sh**, **packages.sh** and **config.sh** to your convenience.
 
 **Please read the scripts ! Don't install random scripts from the internet.**
 
 ## Getting started
 
-VoxArchInstall is just three scripts :
+VoxArchInstall is just four scripts :
 
 - **archInstall.sh** setup the device and install the basic Arch Linux distribution.
 - **chroot.sh** is executed after arch-chroot to setup user infos and install a boot manager.
 - **packages.sh** is a list of packages to install.
+- **config.sh** is the configuration of your .config directory.
 
 ### 0. Run your Arch Linux CD/ISO/USB
 
@@ -96,5 +97,5 @@ cd VoxArchInstall
 
 ### TODO
 - Finish documentation
-- Add .dotfiles with symlinks
+- Implement .config folder
 - Systemd services 
