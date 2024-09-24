@@ -90,7 +90,7 @@ SET_ROOT_PASSWORD(){                                        #Set Root password
 CREATE_USER(){                                              #Create new user
   useradd -m -G "wheel" $USERNAME
   sed -i "$WHEEL" /etc/sudoers                              #Add wheel for sudo
-  sed -i '1i\Defaults:$USERNAME lecture = never' /etc/sudoers 
+  sed -i '1i\Defaults lecture = never' /etc/sudoers 
   passwd $USERNAME
 }
 
