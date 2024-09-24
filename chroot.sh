@@ -93,22 +93,17 @@ CREATE_USER(){                                              #Create new user
   passwd $USERNAME
 }
 
-# --- ADDITIONAL PACKAGES ---
 
-INSTALL_PACKAGES(){                                         #Install additional packages
-  ./packages.sh
-}
-
-# --- SERVICES  ---
+# --- USER CONFIG  ---
 
 USER_CONFIG(){                                              #Execute userConfig
-  su - $USERNAME /bin/bash userConfig.sh
+  su - $USERNAME -c /userConfig.sh
 }
 
 # --- CLEAN ---
 
 CLEAN(){                                                    #Remove scripts
-  rm /chroot.sh /packages.sh /userConfig.sh 
+  rm /chroot.sh /userConfig.sh 
 }
 
 # --- EXECUTION ---
@@ -120,6 +115,5 @@ SET_NETWORK
 SET_BOOT_MANAGER
 SET_ROOT_PASSWORD
 CREATE_USER
-INSTALL_PACKAGES
 USER_CONFIG
 CLEAN
