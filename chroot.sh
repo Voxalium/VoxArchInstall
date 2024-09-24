@@ -9,11 +9,11 @@
 # --- VARIABLES ---
 
 DEVICE=""
-HOSTNAME=""
-KEYMAP=""
-TIMEZONE=""
-USERNAME=""
-WHEEL='/^# %wheel ALL=(ALL:ALL) ALL/s/^# //'                #Remove '#'
+HOSTNAME="Voxa"
+KEYMAP="fr"
+TIMEZONE="Europe/Paris"
+USERNAME="Voxa"
+WHEEL='/^# %wheel ALL=(ALL:ALL) ALL/s/^# //'                #Remove '#' in sudoers file for wheel
 
 # --- TOOLS ---
 
@@ -27,16 +27,12 @@ LIST_DISKS(){                                               #List all disks
   echo ""
 }
 
-# --- TIME ---
+# --- Disk ---
 
 GET_INFO(){
-  read -p "Hostname : " HOSTNAME                            #Get Hostname
-  read -p "Username : " USERNAME                            #Get Username
   echo "DEVICE :"
   LIST_DISKS                                                #List Disks
   read -p "Root partition (for boot manager ) : " DEVICE    #Get Root partition
-  read -p "Time zone (eg. Europe/Paris) : " TIMEZONE        #Get Time Zone
-  read -p "Keymap (eg. fr) : " KEYMAP                       #Get Keymap
 }
 
 # --- TIME ---
@@ -68,8 +64,8 @@ SET_NETWORK(){
 
 # --- BOOT ---
 
-SET_BOOT_MANAGER(){
-  bootctl --path=/boot install                              #Install systemd-boot manager
+SET_BOOT_MANAGER(){                                         #Install systemd-boot manager
+  bootctl --path=/boot install                              
   echo "
   default arch.conf
   timeout 3  
@@ -80,7 +76,6 @@ SET_BOOT_MANAGER(){
   initrd /initramfs-linux.img
   options root=$DEVICE rw
   " > /boot/loader/entries/arch.conf                        #Config Entries
-
 }
 
 # --- ROOT ---
@@ -104,17 +99,16 @@ INSTALL_PACKAGES(){                                         #Install additional 
   ./packages.sh
 }
 
-# --- SERVICES ---
+# --- SERVICES  ---
 
-ENABLE_SERVICES(){
-  systemd enable NetworkManager                             #Enable Network Manager
-
+USER_CONFIG(){                                              #Execute userConfig
+  su - $USERNAME /bin/bash userConfig.sh
 }
 
 # --- CLEAN ---
 
 CLEAN(){                                                    #Remove scripts
-  rm /chroot.sh /packages.sh
+  rm /chroot.sh /packages.sh /userConfig.sh 
 }
 
 # --- EXECUTION ---
@@ -127,4 +121,5 @@ SET_BOOT_MANAGER
 SET_ROOT_PASSWORD
 CREATE_USER
 INSTALL_PACKAGES
+USER_CONFIG
 CLEAN

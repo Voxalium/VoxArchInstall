@@ -9,7 +9,7 @@
 # --- VARIABLES ---
 
 DEVICE=""
-TIMEZONE=""
+TIMEZONE="Europe/Paris"
 PACKAGES=(
   "base" "base-devel" 
   "linux" "linux-headers" "linux-firmware" 
@@ -62,7 +62,6 @@ MOUNTING(){
 # --- BASE INSTALL ---
 #
 BASE_INSTALL(){
-  read -p "Set time zone (eg. Europe/Paris) : " TIMEZONE    #Get the time zone
   timedatectl set-timezone $TIMEZONE                        #Set the time zone
   reflector > /etc/pacman.d/mirrorlist                      #Update the mirrors and replace /etc/pacman.d/mirrorlist
   echo "Mirrors updated"
@@ -76,8 +75,8 @@ BASE_INSTALL(){
 
 # --- CHROOT ---
 CHROOT(){
-  cp chroot.sh packages.sh /mnt                             #Copy scripts to run in /mnt
-  arch-chroot /mnt /bin/bash /chroot.sh                            #Chroot
+  cp chroot.sh packages.sh userConfig.sh /mnt               #Copy scripts to run in /mnt
+  arch-chroot /mnt /bin/bash /chroot.sh                     #Chroot
 }
 
 # --- EXECUTION ---
@@ -95,3 +94,5 @@ FORMATING
 MOUNTING
 BASE_INSTALL
 CHROOT
+
+echo "Installation complete, you can now reboot"
