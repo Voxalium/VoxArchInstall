@@ -98,7 +98,7 @@ CREATE_USER(){                                              #Create new user
 # --- USER CONFIG  ---
 
 USER_CONFIG(){                                              #Execute userConfig
-  su - $USERNAME -c /userConfig.sh
+  sudo su - $USERNAME -c /userConfig.sh
 }
 
 # --- CLEAN ---
