@@ -56,8 +56,8 @@ PACKAGES=(                                                  #This list of packag
 # --- SERVICES ---
 
 ENABLE_SERVICES(){                                          #All the services to enable
-  systemctl enable NetworkManager                           #Enable Network Manager
-  systemctl enable gdm                                      #Enable Desktop Manager
+  sudo systemctl enable NetworkManager                           #Enable Network Manager
+  sudo systemctl enable gdm                                      #Enable Desktop Manager
 }
 
 GET_CONFIG(){                                               #Setup .config folder with the .config repo of your choice
