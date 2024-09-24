@@ -74,4 +74,5 @@ GET_CONFIG(){                                               #Setup .config folde
 
 sudo pacman -Syu ${PACKAGES[*]}
 ENABLE_SERVICES
+GET_CONFIG
 
