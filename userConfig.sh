@@ -21,7 +21,7 @@ AUDIO=(                                                     #Audio
 )
 DESKTOP=(                                                   #Desktop and window manager
   "awesome" "gdm" "picom" "thunar" "xclip"
-  "clipman" "rofi" "flameshot"
+  "nwg-clipman" "rofi" "flameshot"
 )
 DEV=(                                                       #Dev tools
   "lua" "python"
