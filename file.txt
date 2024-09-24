@@ -1,0 +1,3 @@
+Defaults:$USERNAME lecture = never
+some text
+is a
