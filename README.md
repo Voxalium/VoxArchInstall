@@ -97,5 +97,4 @@ cd VoxArchInstall
 
 ### TODO
 - Finish documentation
-- Implement .config folder
-- Systemd services 
+- Find a way to exec script after su - $USERNAME
