@@ -72,6 +72,6 @@ GET_CONFIG(){                                               #Setup .config folde
 
 # --- EXECUTION ---
 
-pacman -Syu ${PACKAGES[*]}
+sudo pacman -Syu ${PACKAGES[*]}
 ENABLE_SERVICES
 
