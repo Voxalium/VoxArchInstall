@@ -15,20 +15,18 @@ By default :
 - It will install **amd-ucode** and **nvidia** proprietary drivers.
 - It will install **systemd-boot** for the boot loader.
 - It will install **xorg** and **pipewire**
-- It will install **awesome** window manager
+- It will install **awesome** window manager with **lightdm**
 
-You can modify **archInstall.sh**, **chroot.sh**, **packages.sh** and **config.sh** to your convenience.
+You can modify the scripts to your convenience.
 
-**Please read the scripts ! Don't install random scripts from the internet.**
+**Please read the scripts! Don't install random scripts from the internet.**
 
 ## Getting started
 
-VoxArchInstall is just four scripts :
+VoxArchInstall is just two scripts :
 
 - **archInstall.sh** setup the device and install the basic Arch Linux distribution.
 - **chroot.sh** is executed after arch-chroot to setup user infos and install a boot manager.
-- **packages.sh** is a list of packages to install.
-- **config.sh** is the configuration of your .config directory.
 
 ### 0. Run your Arch Linux CD/ISO/USB
 
@@ -48,9 +46,8 @@ pacman -S git
 ```sh
 git clone https://github.com/Voxalium/VoxArchInstall
 ```
-### 2. Check Packages
+### 2. Check packages in **chroot.sh** :
 
-Check **packages.sh**
 ```sh
 # --- MODULES ---
 
@@ -80,21 +77,52 @@ pacman -Syu ${PACKAGES[*]}
 ```
 
 You can add modules : 
-`MY_NEW_MODULE=("list" "of" "packages")` 
+```sh
+MY_NEW_MODULE=("list" "of" "packages")
+```
 
 Don't forget to add them in **PACKAGES** : 
-`PACKAGES=(${MY_NEW_MODULE[*]})`
+```sh
+PACKAGES=(${MY_NEW_MODULE[*]})
+```
 
-### 3. Run the script
+### 3. Check .config setup in chroot.sh
+
+```sh
+DOT_CONFIG_REPO="https://github.com/Voxalium/.config.git"   #Edit the url if you want to match your .config repo
+DIRECTORIES=("awesome" "nvim")                              #Directories from the repo to add in the config 
+
+GET_CONFIG(){                                               #Setup .config folder with the .config repo of your choice
+  mkdir ~/.config
+  cd ~/.config
+  git init 
+  git remote add origin $DOT_CONFIG_REPO
+  git sparse-checkout init --cone
+  git sparse-checkout set ${DIRECTORIES[*]}
+  git pull origin main
+}
+```
+
+### 4. Check services to enable in chroot.sh
+
+```sh
+ENABLE_SERVICES(){                                          #All the services to enable
+  systemctl enable NetworkManager                           #Enable Network Manager
+  systemctl enable lightdm                                  #Enable Desktop Manager
+}
+```
+
+### 5. Run the script
 
 ```sh
 cd VoxArchInstall
 ./archInstall
 ```
 
-### 4. Follow instructions
+### 6. Follow instructions
 
 
 ### TODO
 - Finish documentation
-- Find a way to exec script after su - $USERNAME
+- xorg Keymap
+- Some configs

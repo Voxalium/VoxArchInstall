@@ -15,6 +15,9 @@ TIMEZONE="Europe/Paris"
 USERNAME="Voxa"
 WHEEL='/^# %wheel ALL=(ALL:ALL) ALL/s/^# //'                #Remove '#' in sudoers file for wheel
 
+DOT_CONFIG_REPO="https://github.com/Voxalium/.config.git"   #Edit the url if you want to match your .config repo
+DIRECTORIES=("awesome" "nvim" "kitty" "picom")              #Directories from the repo to add in the config 
+
 # --- TOOLS ---
 
 PAUSE(){                                                    #Pause the script
@@ -26,6 +29,48 @@ LIST_DISKS(){                                               #List all disks
   fdisk -l | grep --color=always "/dev"
   echo ""
 }
+
+# --- MODULES ---
+
+APPS=(                                                      #Desktop apps
+  "firefox" "thunderbird" "discord" "mpv"
+)
+AUDIO=(                                                     #Audio
+  "pavucontrol" "helvum" "pipewire"
+)
+DESKTOP=(                                                   #Desktop and window manager
+  "awesome" "lightdm" "picom" "thunar" "xclip"
+  "nwg-clipman" "rofi" "flameshot"
+)
+DEV=(                                                       #Dev tools
+  "lua" "python"
+)
+NVIDIA=(                                                    #Nvidia drivers
+  "nvidia" "nvidia-utils" "nvidia-settings"
+)
+TOOLS=(                                                     #Command line tools 
+  "git" "neovim" "kitty" "zsh" "fzf" "zip"
+  "unzip" "wget"
+)
+WEB=(                                                       #Web tools
+  "nodejs" "npm" "typscript"
+)
+XORG=(                                                      #Xorg
+  "xorg-server" "xorg-apps"
+)
+
+# --- MODULES TO INSTALL ---
+
+PACKAGES=(                                                  #This list of packages will be install with pacman
+#  ${APPS[*]}
+  ${AUDIO[*]}
+  ${DESKTOP[*]}
+#  ${DEV[*]}
+#  ${NVIDIA[*]}
+  ${TOOLS[*]}
+#  ${WEB[*]}
+  ${XORG[*]}
+)
 
 # --- Disk ---
 
@@ -81,7 +126,7 @@ SET_BOOT_MANAGER(){                                         #Install systemd-boo
 # --- ROOT ---
 
 SET_ROOT_PASSWORD(){                                        #Set Root password
-  echo "Set root password"
+  echo "------------- Set root password -------------"
   passwd
 }
 
@@ -90,21 +135,34 @@ SET_ROOT_PASSWORD(){                                        #Set Root password
 CREATE_USER(){                                              #Create new user
   useradd -m -G "wheel" $USERNAME
   sed -i "$WHEEL" /etc/sudoers                              #Add wheel for sudo
-  sed -i '1i\Defaults lecture = never' /etc/sudoers 
+  echo "------------- Set user password -------------"
   passwd $USERNAME
 }
 
 
 # --- USER CONFIG  ---
 
-USER_CONFIG(){                                              #Execute userConfig
-  sudo su - $USERNAME -c /userConfig.sh
+GET_CONFIG(){                                               #Setup .config folder with the .config repo of your choice
+  mkdir ~/.config
+  cd ~/.config
+  git init 
+  git remote add origin $DOT_CONFIG_REPO
+  git sparse-checkout init --cone
+  git sparse-checkout set ${DIRECTORIES[*]}
+  git pull origin main
+}
+
+# --- SERVICES ---
+
+ENABLE_SERVICES(){                                          #All the services to enable
+  systemctl enable NetworkManager                           #Enable Network Manager
+  systemctl enable lightdm                                  #Enable Desktop Manager
 }
 
 # --- CLEAN ---
 
 CLEAN(){                                                    #Remove scripts
-  rm /chroot.sh /userConfig.sh 
+  rm /chroot.sh 
 }
 
 # --- EXECUTION ---
@@ -116,5 +174,7 @@ SET_NETWORK
 SET_BOOT_MANAGER
 SET_ROOT_PASSWORD
 CREATE_USER
-USER_CONFIG
+sudo pacman -Syu ${PACKAGES[*]}
+GET_CONFIG
+ENABLE_SERVICES
 CLEAN

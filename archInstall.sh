@@ -15,7 +15,7 @@ PACKAGES=(
   "linux" "linux-headers" "linux-firmware" 
   "mtools" "dosfstools"
   "os-prober"
-  "amd-ucode"
+ # "amd-ucode"
   "efibootmgr"
   "networkmanager"
 )
@@ -75,7 +75,7 @@ BASE_INSTALL(){
 
 # --- CHROOT ---
 CHROOT(){
-  cp chroot.sh packages.sh userConfig.sh /mnt               #Copy scripts to run in /mnt
+  cp chroot.sh /mnt                                         #Copy script to run in /mnt
   arch-chroot /mnt /bin/bash /chroot.sh                     #Chroot
 }
 
