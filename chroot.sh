@@ -15,9 +15,6 @@ TIMEZONE="Europe/Paris"
 USERNAME="Voxa"
 WHEEL='/^# %wheel ALL=(ALL:ALL) ALL/s/^# //'                #Remove '#' in sudoers file for wheel
 
-DOT_CONFIG_REPO="https://github.com/Voxalium/.config.git"   #Edit the url if you want to match your .config repo
-DIRECTORIES=("awesome" "nvim" "kitty" "picom")              #Directories from the repo to add in the config 
-
 # --- TOOLS ---
 
 PAUSE(){                                                    #Pause the script
@@ -39,7 +36,7 @@ AUDIO=(                                                     #Audio
   "pavucontrol" "helvum" "pipewire"
 )
 DESKTOP=(                                                   #Desktop and window manager
-  "awesome" "lightdm" "picom" "thunar" "xclip"
+  "awesome" "picom" "thunar" "xclip"
   "nwg-clipman" "rofi" "flameshot"
 )
 DEV=(                                                       #Dev tools
@@ -94,7 +91,8 @@ SET_LOCALES(){
   locale-gen                                                #Local Generation
   echo "LANG=en_US.UTF-8"  > /etc/locales.conf              #Set Locales to English
   echo "KEYMAP=$KEYMAP"    > /etc/vconsole.conf             #Set Keymap
-}
+  localectl set-x11-keymap $KEYMAP
+} 
 
 # --- NETWORK ---
 
@@ -139,33 +137,10 @@ CREATE_USER(){                                              #Create new user
   passwd $USERNAME
 }
 
-
-# --- USER CONFIG  ---
-
-GET_CONFIG(){                                               #Setup .config folder with the .config repo of your choice
-  mkdir ~/.config
-  cd ~/.config
-  git init 
-  git remote add origin $DOT_CONFIG_REPO
-  git sparse-checkout init --cone
-  git sparse-checkout set ${DIRECTORIES[*]}
-  git pull origin main
-
-}
-
-INSTALL_AUR_HELPER(){
-  cd ~/
-  git clone https://aur.archlinux.org/yay.git
-  cd yay
-  makepkg -si
-}
-
-
 # --- SERVICES ---
 
 ENABLE_SERVICES(){                                          #All the services to enable
   systemctl enable NetworkManager                           #Enable Network Manager
-  systemctl enable lightdm                                  #Enable Desktop Manager
 }
 
 # --- CLEAN ---
@@ -184,7 +159,5 @@ SET_BOOT_MANAGER
 SET_ROOT_PASSWORD
 CREATE_USER
 sudo pacman -Syu ${PACKAGES[*]}
-GET_CONFIG
-INSTALL_AUR_HELPER
 ENABLE_SERVICES
 CLEAN

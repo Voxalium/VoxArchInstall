@@ -86,43 +86,24 @@ Don't forget to add them in **PACKAGES** :
 PACKAGES=(${MY_NEW_MODULE[*]})
 ```
 
-### 3. Check .config setup in chroot.sh
-
-```sh
-DOT_CONFIG_REPO="https://github.com/Voxalium/.config.git"   #Edit the url if you want to match your .config repo
-DIRECTORIES=("awesome" "nvim")                              #Directories from the repo to add in the config 
-
-GET_CONFIG(){                                               #Setup .config folder with the .config repo of your choice
-  mkdir ~/.config
-  cd ~/.config
-  git init 
-  git remote add origin $DOT_CONFIG_REPO
-  git sparse-checkout init --cone
-  git sparse-checkout set ${DIRECTORIES[*]}
-  git pull origin main
-}
-```
-
-### 4. Check services to enable in chroot.sh
+### 3. Check services to enable in chroot.sh
 
 ```sh
 ENABLE_SERVICES(){                                          #All the services to enable
   systemctl enable NetworkManager                           #Enable Network Manager
-  systemctl enable lightdm                                  #Enable Desktop Manager
 }
 ```
 
-### 5. Run the script
+### 3. Run the script
 
 ```sh
 cd VoxArchInstall
 ./archInstall
 ```
 
-### 6. Follow instructions
+### 4. Follow instructions
 
 
 ### TODO
 - Finish documentation
-- xorg Keymap
 - Some configs
