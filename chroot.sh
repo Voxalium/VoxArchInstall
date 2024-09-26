@@ -150,7 +150,16 @@ GET_CONFIG(){                                               #Setup .config folde
   git sparse-checkout init --cone
   git sparse-checkout set ${DIRECTORIES[*]}
   git pull origin main
+
 }
+
+INSTALL_AUR_HELPER(){
+  cd ~/
+  git clone https://aur.archlinux.org/yay.git
+  cd yay
+  makepkg -si
+}
+
 
 # --- SERVICES ---
 
@@ -176,5 +185,6 @@ SET_ROOT_PASSWORD
 CREATE_USER
 sudo pacman -Syu ${PACKAGES[*]}
 GET_CONFIG
+INSTALL_AUR_HELPER
 ENABLE_SERVICES
 CLEAN
