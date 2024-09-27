@@ -139,7 +139,10 @@ CREATE_USER(){                                              #Create new user
 # --- CONFIG ---
 
 GET_CONFIG(){
-  runuser -l $USERNAME -c "bash /config.sh"
+  cd /root
+  /config.sh
+  chown -R $USERNAME /home/$USERNAME/.config
+  rm -rf /root/.config
 }
 
 # --- SERVICES ---
