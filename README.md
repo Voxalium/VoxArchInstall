@@ -107,3 +107,4 @@ cd VoxArchInstall
 ### TODO
 - Finish documentation
 - Some configs
+- Keymap

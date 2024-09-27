@@ -53,7 +53,7 @@ WEB=(                                                       #Web tools
   "nodejs" "npm" "typscript"
 )
 XORG=(                                                      #Xorg
-  "xorg-server" "xorg-apps"
+  "xorg-server" "xorg-apps" "xorg-xinit"
 )
 
 # --- MODULES TO INSTALL ---
@@ -91,7 +91,7 @@ SET_LOCALES(){
   locale-gen                                                #Local Generation
   echo "LANG=en_US.UTF-8"  > /etc/locales.conf              #Set Locales to English
   echo "KEYMAP=$KEYMAP"    > /etc/vconsole.conf             #Set Keymap
-  localectl set-x11-keymap $KEYMAP
+#  localectl set-x11-keymap $KEYMAP
 } 
 
 # --- NETWORK ---
@@ -136,6 +136,11 @@ CREATE_USER(){                                              #Create new user
   echo "------------- Set user password -------------"
   passwd $USERNAME
 }
+# --- CONFIG ---
+
+GET_CONFIG(){
+  runuser -l $USERNAME -c "bash /config.sh"
+}
 
 # --- SERVICES ---
 
@@ -146,7 +151,7 @@ ENABLE_SERVICES(){                                          #All the services to
 # --- CLEAN ---
 
 CLEAN(){                                                    #Remove scripts
-  rm /chroot.sh 
+  rm /chroot.sh /config.sh 
 }
 
 # --- EXECUTION ---
@@ -158,6 +163,7 @@ SET_NETWORK
 SET_BOOT_MANAGER
 SET_ROOT_PASSWORD
 CREATE_USER
+GET_CONFIG
 sudo pacman -Syu ${PACKAGES[*]}
 ENABLE_SERVICES
 CLEAN

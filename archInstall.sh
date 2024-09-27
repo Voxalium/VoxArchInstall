@@ -75,7 +75,7 @@ BASE_INSTALL(){
 
 # --- CHROOT ---
 CHROOT(){
-  cp chroot.sh /mnt                                         #Copy script to run in /mnt
+  cp chroot.sh config.sh /mnt                               #Copy script to run in /mnt
   arch-chroot /mnt /bin/bash /chroot.sh                     #Chroot
 }
 
