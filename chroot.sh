@@ -80,7 +80,7 @@ GET_INFO(){
 # --- TIME ---
 
 SET_TIME(){
-  ln -sf /urs/share/zoneinfo/$TIMEZONE /etc/localtime       #Set Timezone
+  ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime       #Set Timezone
   hwclock --systohc                                         #Set Clock
 }
 
