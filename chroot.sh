@@ -47,7 +47,7 @@ NVIDIA=(                                                    #Nvidia drivers
 )
 TOOLS=(                                                     #Command line tools 
   "git" "neovim" "kitty" "zsh" "fzf" "zip"
-  "unzip" "wget"
+  "unzip" "wget" "ufw"
 )
 WEB=(                                                       #Web tools
   "nodejs" "npm" "typscript"
@@ -154,6 +154,7 @@ EXTRA_CONFIG(){
 
 ENABLE_SERVICES(){                                          #All the services to enable
   systemctl enable NetworkManager                           #Enable Network Manager
+  systemctl enable ufw                                      #Enable firewall
 }
 
 # --- CLEAN ---
