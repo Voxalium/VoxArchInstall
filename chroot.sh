@@ -59,13 +59,13 @@ XORG=(                                                      #Xorg
 # --- MODULES TO INSTALL ---
 
 PACKAGES=(                                                  #This list of packages will be install with pacman
-#  ${APPS[*]}
+  ${APPS[*]}
   ${AUDIO[*]}
   ${DESKTOP[*]}
-#  ${DEV[*]}
-#  ${NVIDIA[*]}
+  ${DEV[*]}
+  ${NVIDIA[*]}
   ${TOOLS[*]}
-#  ${WEB[*]}
+  ${WEB[*]}
   ${XORG[*]}
 )
 
