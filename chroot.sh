@@ -50,7 +50,7 @@ TOOLS=(                                                     #Command line tools
   "unzip" "wget" "ufw"
 )
 WEB=(                                                       #Web tools
-  "nodejs" "npm" "typscript"
+  "nodejs" "npm"
 )
 XORG=(                                                      #Xorg
   "xorg-server" "xorg-apps" "xorg-xinit"
