@@ -91,7 +91,6 @@ SET_LOCALES(){
   locale-gen                                                #Local Generation
   echo "LANG=en_US.UTF-8"  > /etc/locales.conf              #Set Locales to English
   echo "KEYMAP=$KEYMAP"    > /etc/vconsole.conf             #Set Keymap
-#  localectl set-x11-keymap $KEYMAP
 } 
 
 # --- NETWORK ---
@@ -124,6 +123,7 @@ SET_BOOT_MANAGER(){                                         #Install systemd-boo
 # --- ROOT ---
 
 SET_ROOT_PASSWORD(){                                        #Set Root password
+  clear
   echo "------------- Set root password -------------"
   passwd
 }
@@ -133,16 +133,21 @@ SET_ROOT_PASSWORD(){                                        #Set Root password
 CREATE_USER(){                                              #Create new user
   useradd -m -G "wheel" $USERNAME
   sed -i "$WHEEL" /etc/sudoers                              #Add wheel for sudo
+  clear
   echo "------------- Set user password -------------"
   passwd $USERNAME
 }
 # --- CONFIG ---
 
 GET_CONFIG(){
-  cd /root
+  cd /home/$USERNAME 
   /config.sh
   chown -R $USERNAME /home/$USERNAME/.config
-  rm -rf /root/.config
+}
+EXTRA_CONFIG(){
+  ln -s /home/$USERNAME/.config/zsh/.zshrc /home/$USERNAME
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  ln -s /home/$USERNAME/.config/xinit/.xinitrc /home/$USERNAME
 }
 
 # --- SERVICES ---
@@ -166,7 +171,8 @@ SET_NETWORK
 SET_BOOT_MANAGER
 SET_ROOT_PASSWORD
 CREATE_USER
-GET_CONFIG
 sudo pacman -Syu ${PACKAGES[*]}
+GET_CONFIG
+EXTRA_CONFIG
 ENABLE_SERVICES
 CLEAN

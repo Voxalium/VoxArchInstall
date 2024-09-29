@@ -4,4 +4,3 @@ DOT_CONFIG_REPO="https://github.com/Voxalium/.config.git"   #Edit the url if you
 
                                                             #Setup .config folder with the .config repo of your choice
 git clone $DOT_CONFIG_REPO
-
